@@ -75,7 +75,7 @@ label {
     padding: 7px 20px;
     text-align: center;
     text-decoration: none;
-    transition: background-color 250ms; /* Added a transition property */
+    transition: background-color 250ms; 
     border: 0;
     font-size: 16px;
     user-select: none;

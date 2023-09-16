@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const includeNumbers = document.getElementById('numbers');
     const includeSymbols = document.getElementById('symbols');
     const passwordDisplay = document.getElementById('passwordD');
- 
+    const copyPassword = document.getElementById('buttonCopyPassword');
+
     // Changes them depending on what's getting changed "syncs them"
     passwordNumber.addEventListener('input', syncPassword);
     passwordRange.addEventListener('input', syncPassword);
@@ -41,6 +42,32 @@ document.addEventListener('DOMContentLoaded', function () {
         return passwordCharacters.join('');  // Returns the array as a string
     }
  
+    // Copies the password to the clipboard
+    copyPassword.addEventListener('click', function () {
+        // Get the generated password from the display
+        const generatedPassword = passwordDisplay.innerText;
+
+        if (generatedPassword) {
+            // Create a temporary text area element to store the password
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = generatedPassword;
+
+            // Append the text area to the document
+            document.body.appendChild(tempTextArea);
+
+            tempTextArea.select();
+            try {
+                // Execute the copy command using the Clipboard API
+                document.execCommand('copy');
+                console.log('Password copied to clipboard');
+            } catch (err) {
+                console.error('Unable to copy password:', err);
+            } finally {
+                document.body.removeChild(tempTextArea);
+            }
+        }
+    });
+
     // Generated the arrays
     function arrayFromLowToHigh(low, high) {
         const array = [];
@@ -58,4 +85,3 @@ document.addEventListener('DOMContentLoaded', function () {
         passwordRange.value = value;
     }
  });
- 
